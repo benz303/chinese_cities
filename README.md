@@ -19,8 +19,8 @@ Or install it yourself as:
 ## Usage
 
 ```ruby
-province = ChineseCities::Province.find '北京市'
-=> <#ChineseCities::Province:0xa612128 @name="北京市">   
+province = ChineseCities::Province.where '北京市'
+=> <#ChineseCities::Province:0xa612128 @name="北京市">
 
 province.name
 => '北京市'
@@ -71,10 +71,10 @@ ChineseCities::Province.all
 ChineseCities::Province.all_names
 => [ An array of all province names ]
 
-city = ChineseCities::Cities.find '西城区'
-=> #<ChineseCities::City:0xac40464 @name="西城区">
+cities = ChineseCities::Cities.where '西城区'
+=> [#<ChineseCities::City:0xac40464 @name="西城区">]
 
-city.province
+cities.first.province
 => #<ChineseCities::Province:0xaf27808 @name="北京市"
 
 city.province_name
@@ -86,9 +86,25 @@ ChineseCities::City.all
 ChineseCities::City.all_names
 => [ An array of all cities names ]
 
+regions = ChineseCities::Region.where('浦东区')
+=> [#<ChineseCities::Region:0x89bdb6c @id=726, @city_id=73, @name="浦东新区">]
+
+regions.first.city
+=> #<ChineseCities::City:0x89bb308 @id=73, @province_id=9, @name="黄浦区">
+
+ChineseCities::Region.all
+=> [ An array of all regions objects ]
+
+ChineseCities::Region.all_names
+=> [ An array of all regions names ]
+
 # Search provinces and cities which name like your parameter
 ChineseCities.search '京'
-=> {:provinces=>["北京市"], :cities=>["南京市", "京山县"]}
+=> {
+     :provinces=>[{:id=>1, :name=>"北京市"}],
+     :cities=>[{:id=>1, :province_id=>1, :name=>"北京市"}, {:id=>74, :province_id=>10, :name=>"南京市"}],
+     :regions=>[{:id=>817, :city_id=>84, :name=>"京口区"}, {:id=>1567, :city_id=>175, :name=>"京山县"}]
+   }
 
 
 
