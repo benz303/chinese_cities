@@ -98,8 +98,8 @@ ChineseCities::Region.all
 ChineseCities::Region.all_names
 => [ An array of all regions names ]
 
-# Search provinces and cities which name like your parameter
-ChineseCities.search '京'
+# Search provinces, cities, regions which name like your parameter
+ChineseCities.search('京')
 => {
      :provinces=>[#<ChineseCities::Province:0x9fee120 @id=1, @name="北京市">],
      :cities=>[#<ChineseCities::City:0xa040b78 @id=1, @province_id=1, @name="北京市">, #<ChineseCities::City:0xa040b64 @id=74, @province_id=10, @name="南京市">],
