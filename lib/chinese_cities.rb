@@ -1,24 +1,20 @@
-# encoding: utf-8
- 
 require "chinese_cities/version"
+require "chinese_cities/database"
 
 module ChineseCities
-  autoload :DATABASE, 'chinese_cities/database'
   autoload :Province, 'chinese_cities/province'
-  autoload :City, 'chinese_cities/city'
+  autoload :City,     'chinese_cities/city'
+  autoload :Region,   'chinese_cities/region'
 
-  def self.search name
-    hash = Hash.new
+  def self.search(name)
+    provinces = PROVINCES.select { |province| province[:name] =~ /#{name}/ }
+    cities = CITIES.select { |city| city[:name] =~ /#{name}/}
+    regions = REGIONS.select { |region| region[:name] =~ /#{name}/ }
 
-    hash[:provinces] = Province.all_names.find_all do |province|
-                         province.include? name
-                       end
-
-    hash[:cities] = City.all_names.find_all do |city|
-                      city.include? name
-                    end
-
-    hash
+    {
+      provinces: provinces,
+      cities: cities,
+      regions: regions
+    }
   end
-
 end

@@ -7,7 +7,7 @@ module ChineseCities
 
   describe Province do
     before :all do
-      @province = Province.find '北京市'
+      @province = Province.find(1)
     end
 
     context '#cities' do
@@ -32,12 +32,12 @@ module ChineseCities
 
     context '.find' do
       it 'should find a province' do
-        result = Province.find '天津市'
+        result = Province.find(1)
         result.should_not be_nil
       end
 
       it 'should not find a province' do
-        result = Province.find '啊啊啊'
+        result = Province.find(0)
         result.should be_nil
       end
     end
@@ -53,6 +53,18 @@ module ChineseCities
       it 'should get all province names' do
         result = Province.all_names
         result.should_not be_empty
+      end
+    end
+
+    context '.where' do
+      it 'should get a province' do
+        result = Province.where('北京市')
+        result.should_not nil
+      end
+
+      it 'should not get any province' do
+        result = Province.where('哈哈')
+        result.should nil
       end
     end
 

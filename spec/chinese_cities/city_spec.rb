@@ -7,7 +7,7 @@ module ChineseCities
 
   describe City do
     before :all do
-      @city = City.find '西城区'
+      @city = City.find(1)
     end
 
     context '#province' do
@@ -24,20 +24,34 @@ module ChineseCities
       end
     end
 
+    context '#regions' do
+      it 'should have regions' do
+        result = @city.regions
+        result.should_not be_empty
+      end
+    end
+
+    context '#region_name' do
+      it 'should have result_names' do
+        result = @city.region_names
+        result.should_not be_empty
+      end
+    end
+
     context '.new' do
       it 'should be a private method' do
-        lambda { City.new '西城区' }.should raise_error
+        lambda { City.new('西城区')}.should raise_error
       end
     end
 
     context '.find' do
       it 'should find a city' do
-        result = City.find '西城区'
+        result = City.find(1)
         result.should_not be_nil
       end
 
       it 'should not find a city' do
-        result = City.find '啊啊啊'
+        result = City.find(0)
         result.should be_nil
       end
     end
@@ -52,6 +66,25 @@ module ChineseCities
     context '.all_names' do
       it 'should get all city names' do
         result = City.all_names
+        result.should_not be_empty
+      end
+    end
+
+    context '.where' do
+      it 'should get some cities' do
+        result = City.where('北京市')
+        result.should_not be_empty
+      end
+
+      it 'should not get city' do
+        result = City.where('哈哈')
+        result.should be_nil
+      end
+    end
+
+    context '.find_by_province_id' do
+      it 'should find by province_id' do
+        result = City.find_by_province_id(1)
         result.should_not be_empty
       end
     end

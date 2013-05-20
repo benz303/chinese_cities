@@ -1,42 +1,40 @@
 module ChineseCities
   class Province
-    attr_accessor :name
-    
-    def initialize name
+    attr_accessor :id, :name
+
+    def initialize(id, name)
+      @id = id
       @name = name
     end
 
     def cities
-      city_names.map do |city|
-        City.find city 
-      end
+      City.find_by_province_id(id)
     end
 
     def city_names
-      DATABASE.find do |province|
-        province.first == name
-      end.last
+      cities.map(&:name)
     end
 
     class << self
 
       private :new
 
-      def find name
-        return nil unless all_names.include? name
-        new name
+      def find(id)
+        province = PROVINCES.find { |province| province[:id] == id }
+        new(province[:id], province[:name]) unless province.nil?
+      end
+
+      def where(name)
+        province = PROVINCES.find { |province| province[:name] == name }
+        new(province[:id], province[:name]) if province
       end
 
       def all_names
-        DATABASE.map do |province|
-          province.first
-        end
+        PROVINCES.map { |province| province[:name] }
       end
 
       def all
-        all_names.map do |province|
-          new province
-        end
+        PROVINCES.map { |province| new(province[:id], province[:name]) }
       end
     end
 
