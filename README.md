@@ -110,6 +110,10 @@ ChineseCities.search '京'
 
 ```
 
+## Test
+
+rspec
+
 ## Contributing
 
 1. Fork it
