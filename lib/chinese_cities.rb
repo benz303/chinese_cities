@@ -7,9 +7,9 @@ module ChineseCities
   autoload :Region,   'chinese_cities/region'
 
   def self.search(name)
-    provinces = PROVINCES.select { |province| province[:name] =~ /#{name}/ }
-    cities = CITIES.select { |city| city[:name] =~ /#{name}/}
-    regions = REGIONS.select { |region| region[:name] =~ /#{name}/ }
+    provinces = Province.search(name)
+    cities    = City.search(name)
+    regions   = Region.search(name)
 
     {
       provinces: provinces,

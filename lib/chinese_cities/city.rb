@@ -28,6 +28,13 @@ module ChineseCities
 
       private :new
 
+      def search(name)
+        cities = CITIES.select { |city| city[:name] =~ /#{name}/ }
+        cities.map do |city|
+          new(city[:id], city[:province_id], city[:name])
+        end
+      end
+
       def find_by_province_id(province_id)
         cities = CITIES.select { |city| city[:province_id] == province_id }
         cities.map { |city| new(city[:id], city[:province_id], city[:name]) } unless cities.nil?

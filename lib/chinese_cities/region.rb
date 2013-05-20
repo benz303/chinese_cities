@@ -17,8 +17,14 @@ module ChineseCities
     end
 
     class << self
+      private :new
 
-      private :name
+      def search(name)
+        regions = REGIONS.select { |region| region[:name] =~ /#{name}/ }
+        regions.map do |region|
+          new(region[:id], region[:city_id], region[:name])
+        end
+      end
 
       def find_by_city_id(city_id)
         regions = REGIONS.select { |region| region[:city_id] == city_id }

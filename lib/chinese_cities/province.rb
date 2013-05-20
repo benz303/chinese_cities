@@ -19,6 +19,13 @@ module ChineseCities
 
       private :new
 
+      def search(name)
+        provinces = PROVINCES.select { |province| province[:name] =~ /#{name}/ }
+        provinces.map do |province|
+          new(province[:id], province[:name])
+        end
+      end
+
       def find(id)
         province = PROVINCES.find { |province| province[:id] == id }
         new(province[:id], province[:name]) unless province.nil?
