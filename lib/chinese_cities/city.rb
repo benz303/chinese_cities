@@ -2,10 +2,10 @@ module ChineseCities
   class City
     attr_accessor :id, :name, :province_id
 
-    def initialize(id, province_id, name)
-      @id = id
-      @province_id = province_id
-      @name = name
+    def initialize(city)
+      @id = city[:id]
+      @province_id = city[:province_id]
+      @name = city[:name]
     end
 
     def province
@@ -31,23 +31,23 @@ module ChineseCities
       def search(name)
         cities = CITIES.select { |city| city[:name] =~ /#{name}/ }
         cities.map do |city|
-          new(city[:id], city[:province_id], city[:name])
+          new(city)
         end
       end
 
       def find_by_province_id(province_id)
         cities = CITIES.select { |city| city[:province_id] == province_id }
-        cities.map { |city| new(city[:id], city[:province_id], city[:name]) } unless cities.nil?
+        cities.map { |city| new(city) } unless cities.nil?
       end
 
       def find(id)
         city = CITIES.find { |city| city[:id] == id }
-        new(city[:id], city[:province_id], city[:name]) unless city.nil?
+        new(city) unless city.nil?
       end
 
       def where(name)
         cities = CITIES.select { |city| city[:name] == name }
-        cities.map { |city| new(city[:id], city[:province_id], city[:name]) } unless cities.empty?
+        cities.map { |city| new(city) } unless cities.empty?
       end
 
       def all_names
@@ -55,7 +55,7 @@ module ChineseCities
       end
 
       def all
-        CITIES.map { |city| new(city[:id], city[:province_id], city[:name]) }
+        CITIES.map { |city| new(city) }
       end
     end
 

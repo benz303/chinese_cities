@@ -40,7 +40,7 @@ module ChineseCities
 
     context '.new' do
       it 'should be a private method' do
-        lambda { City.new('西城区')}.should raise_error
+        lambda { City.new(CITIES.first)}.should raise_error
       end
     end
 

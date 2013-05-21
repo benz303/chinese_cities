@@ -2,10 +2,10 @@ module ChineseCities
   class Region
     attr_accessor :id, :name, :city_id
 
-    def initialize(id, city_id, name)
-      @id = id
-      @city_id = city_id
-      @name = name
+    def initialize(region)
+      @id = region[:id]
+      @city_id = region[:city_id]
+      @name = region[:name]
     end
 
     def city
@@ -22,24 +22,23 @@ module ChineseCities
       def search(name)
         regions = REGIONS.select { |region| region[:name] =~ /#{name}/ }
         regions.map do |region|
-          new(region[:id], region[:city_id], region[:name])
+          new(region)
         end
       end
 
       def find_by_city_id(city_id)
         regions = REGIONS.select { |region| region[:city_id] == city_id }
-        regions.map { |region| new(region[:id], region[:city_id], region[:name]) }
+        regions.map { |region| new(region) }
       end
 
       def find(id)
         region = REGIONS.find { |region| region[:id] == id }
-
-        new(region[:id], region[:city_id], region[:name]) unless region.nil?
+        new(region) unless region.nil?
       end
 
       def where(name)
         regions = REGIONS.select { |region| region[:name] == name }
-        regions.map { |region| new(region[:id], region[:city_id], region[:name]) } unless regions.empty?
+        regions.map { |region| new(region) } unless regions.empty?
       end
 
       def all_names
@@ -47,7 +46,7 @@ module ChineseCities
       end
 
       def all
-        REGIONS.map { |region| new(region[:id], region[:city_id], region[:name]) }
+        REGIONS.map { |region| new(region) }
       end
 
     end

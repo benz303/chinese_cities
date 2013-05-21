@@ -2,9 +2,9 @@ module ChineseCities
   class Province
     attr_accessor :id, :name
 
-    def initialize(id, name)
-      @id = id
-      @name = name
+    def initialize(province)
+      @id = province[:id]
+      @name = province[:name]
     end
 
     def cities
@@ -22,18 +22,18 @@ module ChineseCities
       def search(name)
         provinces = PROVINCES.select { |province| province[:name] =~ /#{name}/ }
         provinces.map do |province|
-          new(province[:id], province[:name])
+          new(province)
         end
       end
 
       def find(id)
         province = PROVINCES.find { |province| province[:id] == id }
-        new(province[:id], province[:name]) unless province.nil?
+        new(province) unless province.nil?
       end
 
       def where(name)
         province = PROVINCES.find { |province| province[:name] == name }
-        new(province[:id], province[:name]) if province
+        new(province) if province
       end
 
       def all_names
@@ -41,7 +41,7 @@ module ChineseCities
       end
 
       def all
-        PROVINCES.map { |province| new(province[:id], province[:name]) }
+        PROVINCES.map { |province| new(province) }
       end
     end
 

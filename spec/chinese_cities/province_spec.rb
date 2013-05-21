@@ -26,7 +26,7 @@ module ChineseCities
 
     context '.new' do
       it 'should be a private method' do
-        lambda { Province.new '北京市' }.should raise_error
+        lambda { Province.new(PROVINCES.first) }.should raise_error
       end
     end
 
