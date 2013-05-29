@@ -20,50 +20,35 @@ Or install it yourself as:
 
 ```ruby
 province = ChineseCities::Province.where '北京市'
-=> <#ChineseCities::Province:0xa612128 @name="北京市">
+=> #<ChineseCities::Province:0xa0d154c @id=1, @name="北京市">
 
 province.name
 => '北京市'
 
 province.cities
-=> [#<ChineseCities::City:0xa6b94b4 @name="东城区">,
-    #<ChineseCities::City:0xa6b943c @name="西城区">,
-    #<ChineseCities::City:0xa6b939c @name="崇文区">,
-    #<ChineseCities::City:0xa6b934c @name="宣武区">,
-    #<ChineseCities::City:0xa6b92e8 @name="朝阳区">,
-    #<ChineseCities::City:0xa6b920c @name="海淀区">,
-    #<ChineseCities::City:0xa6b9158 @name="丰台区">,
-    #<ChineseCities::City:0xa6b907c @name="房山区">,
-    #<ChineseCities::City:0xa6b9018 @name="通州区">,
-    #<ChineseCities::City:0xa6b8f64 @name="顺义区">,
-    #<ChineseCities::City:0xa6b8ed8 @name="昌平区">,
-    #<ChineseCities::City:0xa6b8de8 @name="大兴区">,
-    #<ChineseCities::City:0xa6b8d98 @name="怀柔区">,
-    #<ChineseCities::City:0xa6b8cbc @name="平谷区">,
-    #<ChineseCities::City:0xa6b8c44 @name="密云县">,
-    #<ChineseCities::City:0xa6b8be0 @name="延庆县">,
-    #<ChineseCities::City:0xa6b8b68 @name="门头沟区">,
-    #<ChineseCities::City:0xa6b8aa0 @name="石景山区">]
+=> [#<ChineseCities::City:0xa04e714 @id=1, @province_id=1, @name="北京市">]
 
-province.city_names
-=> ["东城区",
-    "西城区",
-    "崇文区",
-    "宣武区",
-    "朝阳区",
-    "海淀区",
-    "丰台区",
-    "房山区",
-    "通州区",
-    "顺义区",
-    "昌平区",
-    "大兴区",
-    "怀柔区",
-    "平谷区",
-    "密云县",
-    "延庆县",
-    "门头沟区",
-    "石景山区"]
+city = province.cities.first
+
+city.regions
+=> [
+     #<ChineseCities::Region:0xa084ee0 @id=1, @city_id=1, @name="东城区">
+     #<ChineseCities::Region:0xa084ecc @id=2, @city_id=1, @name="西城区">
+     #<ChineseCities::Region:0xa084eb8 @id=3, @city_id=1, @name="朝阳区">
+     #<ChineseCities::Region:0xa084ea4 @id=4, @city_id=1, @name="丰台区">
+     #<ChineseCities::Region:0xa084e90 @id=5, @city_id=1, @name="石景山区">
+     #<ChineseCities::Region:0xa084e7c @id=6, @city_id=1, @name="海淀区">
+     #<ChineseCities::Region:0xa084e68 @id=7, @city_id=1, @name="门头沟区">
+     #<ChineseCities::Region:0xa084e54 @id=8, @city_id=1, @name="房山区">
+     #<ChineseCities::Region:0xa084e40 @id=9, @city_id=1, @name="通州区">
+     #<ChineseCities::Region:0xa084e2c @id=10, @city_id=1, @name="顺义区">
+     #<ChineseCities::Region:0xa084e18 @id=11, @city_id=1, @name="昌平区">
+     #<ChineseCities::Region:0xa084e04 @id=12, @city_id=1, @name="大兴区">
+     #<ChineseCities::Region:0xa084df0 @id=13, @city_id=1, @name="怀柔区">
+     #<ChineseCities::Region:0xa084ddc @id=14, @city_id=1, @name="平谷区">
+     #<ChineseCities::Region:0xa084dc8 @id=15, @city_id=1, @name="密云县">
+     #<ChineseCities::Region:0xa084db4 @id=16, @city_id=1, @name="延庆县">
+   ]
 
 ChineseCities::Province.all
 => [ An array of all province objects ]
@@ -71,14 +56,14 @@ ChineseCities::Province.all
 ChineseCities::Province.all_names
 => [ An array of all province names ]
 
-cities = ChineseCities::City.where '西城区'
-=> [#<ChineseCities::City:0xac40464 @name="西城区">]
+cities = ChineseCities::City.where '杭州市'
+=> [#<ChineseCities::City:0xac40464 @name="杭州市">]
 
 cities.first.province
-=> #<ChineseCities::Province:0xaf27808 @name="北京市"
+=> #<ChineseCities::Province:0xa0931c0 @id=11, @name="浙江省">
 
 city.province_name
-=> '北京市'
+=> '浙江省'
 
 ChineseCities::City.all
 => [ An array of all cities objects ]
@@ -86,7 +71,7 @@ ChineseCities::City.all
 ChineseCities::City.all_names
 => [ An array of all cities names ]
 
-regions = ChineseCities::Region.where('浦东区')
+regions = ChineseCities::Region.where('浦东新区')
 => [#<ChineseCities::Region:0x89bdb6c @id=726, @city_id=73, @name="浦东新区">]
 
 regions.first.city
