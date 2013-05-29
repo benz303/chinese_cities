@@ -112,7 +112,7 @@ module ChineseCities
       { id: 70, province_id: 8, name: "黑河市" },
       { id: 71, province_id: 8, name: "绥化市" },
       { id: 72, province_id: 8, name: "大兴安岭地区" },
-      { id: 73, province_id: 9, name: "黄浦区" },
+      { id: 73, province_id: 9, name: "上海市" },
       { id: 74, province_id: 10, name: "南京市" },
       { id: 75, province_id: 10, name: "无锡市" },
       { id: 76, province_id: 10, name: "徐州市" },
