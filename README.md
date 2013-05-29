@@ -18,6 +18,8 @@ Or install it yourself as:
 
 ## Usage
 
+Data from http://www.stats.gov.cn/tjbz/xzqhdm/index.htm.
+
 ```ruby
 province = ChineseCities::Province.where '北京市'
 => #<ChineseCities::Province:0xa0d154c @id=1, @name="北京市">
