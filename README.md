@@ -71,7 +71,7 @@ ChineseCities::Province.all
 ChineseCities::Province.all_names
 => [ An array of all province names ]
 
-cities = ChineseCities::Cities.where '西城区'
+cities = ChineseCities::City.where '西城区'
 => [#<ChineseCities::City:0xac40464 @name="西城区">]
 
 cities.first.province
